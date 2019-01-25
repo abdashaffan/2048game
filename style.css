@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+:root {
+    --move: 128.75px; 
+}
+
+body {
+    box-sizing: border-box;
+    background-color: rgb(250, 248, 239);
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    height: 100vh;
+    /* Flex layout settings */
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+#grid-container {
+    padding: 15px;
+    margin: auto;
+    width: 500px;
+    height: 500px;
+    background: rgb(187, 173, 160);
+    border-radius: 6px;
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 15px;
+}
+
+.grid-cell {
+    background: rgba(238, 228, 218, 0.35);
+    border-radius: 3px;
+}
+
+.grid-block {
+    font-size: 55px;
+    font-weight: 800;
+    background: rgb(238, 228, 218);
+    color: #776e65;
+    border-radius: inherit;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Animation class */
+.moveright {
+    animation: right 500ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes right {
+    0%{
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(var(--move));
+    }
+}
+
+.movedown {
+    animation: down 500ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes down {
+    0%{
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(var(--move));
+    }
+}
+
+.moveleft {
+    animation: left 500ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes left {
+    0%{
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-1*var(--move)));
+    }
+}
+
+.moveup {
+    animation: up 500ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes up {
+    0%{
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(calc(-1*var(--move)));
+    }
+}
