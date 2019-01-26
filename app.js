@@ -1,3 +1,8 @@
+let score = Number(document.getElementById('score-number').innerText);
+let highscore = Number(document.getElementById('best-number').innerText);
+
+
+
 // Set grid pada awal game
 function setCells() {
     let cellList = document.querySelectorAll('.grid-cell');
@@ -38,6 +43,14 @@ function deleteFirstElBlock (elCell) {
     if (elCell.childNodes.length == 0){
         elCell.classList.add('empty');
     }
+}
+function updateScore(addPts){
+    score += addPts;
+    if (score > highscore) {
+        highscore = score;
+    }
+    document.getElementById('score-number').innerText = score;
+    document.getElementById('best-number').innerText = highscore;
 }
 // MOVING FUNCTIONS
 
@@ -91,6 +104,7 @@ function animateBlock (rowColList, startPos, distToLastEmptyCell, dir, blockMove
             rowColList[lastPos].firstElementChild.classList.add("enlarge");
             moved = true;
             blockMoved.num += 1;
+            updateScore(newVal);
         } 
     } 
     if (!moved && distToLastEmptyCell>0) { //sebelahnya kosong semua
@@ -176,6 +190,23 @@ function move(){
     });
 }
 
+function resetGame(){
+    document.getElementById('start').addEventListener('click', function(e){
+        e.preventDefault();
+        cellList = document.querySelectorAll('.grid-cell');
+        for (let i = 0, cell; cell = cellList[i]; i++){
+            cell.innerHTML = '';
+            cell.classList.add('empty');
+        }
+        score = 0;
+        document.getElementById('score-number').innerText = score;
+        // setTimeout(addNewRandomBlock(2), 300);
+        addNewRandomBlock(2);
+    })
+}
+
+
+resetGame();
 setCells();
 move();
 setTimeout(addNewRandomBlock(2), 300);
