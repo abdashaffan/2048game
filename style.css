@@ -31,18 +31,37 @@ body {
 .grid-cell {
     background: rgba(238, 228, 218, 0.35);
     border-radius: 3px;
-}
-
-.grid-block {
-    font-size: 55px;
-    font-weight: 800;
-    background: rgb(238, 228, 218);
-    color: #776e65;
-    border-radius: inherit;
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.grid-block {
+    background: rgb(238, 228, 218);
+    color: #776e65;
+    border-radius: inherit;
+    font-weight: 800;
+    /* font-size: 55px; */
+    /* height: 100%; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation-name: appear;
+    animation-duration: 300ms;
+    /* animation-delay: 80ms; */
+    animation-fill-mode: forwards;
+}
+@keyframes appear {
+    0% {
+        font-size: 0px;
+        height: 0%;
+        width:0%;
+    }
+    100% {
+        font-size: 55px;
+        height: 100%;
+        width:100%;
+    }
 }
 
 /* Animation class */
