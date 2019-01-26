@@ -65,6 +65,24 @@ body {
 }
 
 /* Animation class */
+.enlarge {
+    animation: enlarge 200ms ease;
+    animation-fill-mode: forwards;
+    /* animation-delay: 100ms; */
+}
+
+@keyframes enlarge {
+    0% {
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(1.25);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
 .moveright1 {
     animation: right1 100ms;
     animation-fill-mode: forwards;
@@ -102,6 +120,126 @@ body {
     }
     100% {
         transform: translateX(0);
+    }
+}
+
+.movedown1 {
+    animation: down1 100ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes down1 {
+    0%{
+        transform: translateY(calc(-1*var(--move)));
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+.movedown2 {
+    animation: down2 100ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes down2 {
+    0%{
+        transform: translateY(calc(-2*var(--move)));
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+.movedown3 {
+    animation: down3 100ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes down3 {
+    0%{
+        transform: translateY(calc(-3*var(--move)));
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.moveleft1 {
+    animation: left1 100ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes left1 {
+    0%{
+        transform: translateX(calc(1*var(--move)));
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+.moveleft2 {
+    animation: left2 100ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes left2 {
+    0%{
+        transform: translateX(calc(2*var(--move)));
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+.moveleft3 {
+    animation: left3 100ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes left3 {
+    0%{
+        transform: translateX(calc(3*var(--move)));
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.moveup1 {
+    animation: up1 100ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes up1 {
+    0%{
+        transform: translateY(calc(1*var(--move)));
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+.moveup2 {
+    animation: up2 100ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes up2 {
+    0%{
+        transform: translateY(calc(2*var(--move)));
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+.moveup3 {
+    animation: up3 100ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes up3 {
+    0%{
+        transform: translateY(calc(3*var(--move)));
+    }
+    100% {
+        transform: translateY(0);
     }
 }
 
