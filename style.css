@@ -41,14 +41,14 @@ body {
     color: #776e65;
     border-radius: inherit;
     font-weight: 800;
-    /* font-size: 55px; */
-    /* height: 100%; */
+    font-size: 55px;
+    height: 100%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     animation-name: appear;
     animation-duration: 300ms;
-    /* animation-delay: 80ms; */
     animation-fill-mode: forwards;
 }
 @keyframes appear {
@@ -65,58 +65,43 @@ body {
 }
 
 /* Animation class */
-.moveright {
-    animation: right 500ms;
+.moveright1 {
+    animation: right1 100ms;
     animation-fill-mode: forwards;
 }
 
-@keyframes right {
+@keyframes right1 {
     0%{
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(var(--move));
-    }
-}
-
-.movedown {
-    animation: down 500ms;
-    animation-fill-mode: forwards;
-}
-
-@keyframes down {
-    0%{
-        transform: translateY(0);
-    }
-    100% {
-        transform: translateY(var(--move));
-    }
-}
-
-.moveleft {
-    animation: left 500ms;
-    animation-fill-mode: forwards;
-}
-
-@keyframes left {
-    0%{
-        transform: translateX(0);
-    }
-    100% {
         transform: translateX(calc(-1*var(--move)));
     }
+    100% {
+        transform: translateX(0);
+    }
 }
-
-.moveup {
-    animation: up 500ms;
+.moveright2 {
+    animation: right2 100ms;
     animation-fill-mode: forwards;
 }
 
-@keyframes up {
+@keyframes right2 {
     0%{
-        transform: translateY(0);
+        transform: translateX(calc(-2*var(--move)));
     }
     100% {
-        transform: translateY(calc(-1*var(--move)));
+        transform: translateX(0);
     }
 }
+.moveright3 {
+    animation: right3 100ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes right3 {
+    0%{
+        transform: translateX(calc(-3*var(--move)));
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
