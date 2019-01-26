@@ -31,7 +31,7 @@ function addBlock(elCell, numBlock) {
     elCell.appendChild(gb);
     elCell.classList.remove('empty');
 }
-function deleteBlock (elCell) {
+function deleteFirstElBlock (elCell) {
 // yang didelete firstChild buat ngatasin yang merge block
     let deleted = elCell.firstElementChild;
     elCell.removeChild(deleted);
@@ -41,11 +41,6 @@ function deleteBlock (elCell) {
 }
 // MOVING FUNCTIONS
 
-// inner function
-// Syarat block bisa geser :
-// 1. Gak dipojok,
-// 2. Sebelahnya kosong,
-// 3. Kalo ga kosong, val disebelahnya sama.
 function isCellOnEdge(elCell, dir) {
     if (dir == 'right') {
         return (elCell.classList.contains('col4'));
@@ -61,25 +56,57 @@ function isCellEmpty (elCell) {
     return (elCell.classList.contains('empty'));
 }
 function isBlockValEqual(elList1,elList2) {
-    // I.S Input Cell tidak boleh kosong dan hanya berisi 1 block
-
-    
-
-    // let thisBlockVal = elList[idx].firstElementChild.innerHTML;
-    // let nextBlockVal;
-    // if (dir == 'right' || dir == 'down'){
-    //     nextBlockVal = elList[idx+1].firstElementChild.innerHTML;
-    // } else if (dir == 'up' || dir == 'left'){
-    //     nextBlockVal = elList[idx-1].firstElementChild.innerHTML;
-    // }
-    
-    return (elList1.firstElementChild.innerText == elList2.firstElementChild.innerText);
+    // I.S Input Cell tidak boleh kosong dan harus hanya berisi 1 block
+    let val1 = Number(elList1.firstElementChild.innerText);
+    let val2 = Number(elList2.firstElementChild.innerText);
+    return (val1 === val2);
 }
 
+function animateBlock (rowColList, startPos, distToLastEmptyCell, dir){
+    let moved = false;
+    let mvClass = "move" + dir;
+    let lastEmptyPos, lastPos;
+    if (dir == "right" || dir == "down"){
+        lastEmptyPos = startPos+distToLastEmptyCell;
+        lastPos = lastEmptyPos+1;
+    } else if (dir == "up" || dir == "left"){
+        lastEmptyPos = startPos-distToLastEmptyCell;
+        lastPos = lastEmptyPos-1;
+    }
+    if (!isCellOnEdge(rowColList[lastEmptyPos], dir)){
+        if (isBlockValEqual(rowColList[startPos],rowColList[lastPos])){
+            let val1, val2, newVal;
+            val1 = Number(rowColList[startPos].firstElementChild.innerText);
+            deleteFirstElBlock(rowColList[startPos]);
+            val2 = Number(rowColList[lastPos].firstElementChild.innerText);
+            newVal = val1+val2;
+            var strNewVal = newVal.toString();
+            addBlock(rowColList[lastPos], strNewVal);
+            mvClass += (distToLastEmptyCell+1);
+            rowColList[lastPos].lastElementChild.classList.add(mvClass);
+            deleteFirstElBlock(rowColList[lastPos]);
+            setTimeout(function(){
+                rowColList[lastPos].lastElementChild.classList.remove(mvClass);
+            },100);
+            rowColList[lastPos].firstElementChild.classList.add("enlarge");
+            moved = true;
+            // blockMoved++;
+        } 
+    } 
+    if (!moved && distToLastEmptyCell>0) { //sebelahnya kosong semua
+        currentVal = rowColList[startPos].innerText;
+        deleteFirstElBlock(rowColList[startPos]);
+        addBlock(rowColList[lastEmptyPos], currentVal);
+        mvClass += distToLastEmptyCell;
+        rowColList[lastEmptyPos].lastElementChild.classList.add(mvClass);
+        // blockMoved++;
+    }
+}
 
 function isArrowKey (key) {
     return (key >= 37 && key <= 40);
 }
+
 function move(){
     window.addEventListener('keydown', function(e){
         key = e.which;
@@ -94,92 +121,57 @@ function move(){
             let c4List = document.querySelectorAll('.col4');
             rowList = [r1List,r2List,r3List,r4List];
             colList = [c1List, c2List, c3List, c4List];
-            if (key == 39){ //right
-                    for (let i = 0,erl; erl = rowList[i]; i++){
-                        for (let j = (erl.length - 1);j >= 0; j--){ //iterate backwards
+            if (key == 39 || key == 40){
+                let currentList;
+                let dir;
+                // let blockMoved = 0;
+                    if (key == 39){
+                        currentList = rowList;
+                        dir = "right";
+                    } else if (key == 40) {
+                        currentList = colList;
+                        dir = "down";
+                    }
+                    for (let i = 0,erl; erl = currentList[i]; i++){
+                        for (let j = (erl.length - 1);j >= 0; j--){ //iterate backward
                             if (!isCellEmpty(erl[j])){
-                                if (!isCellOnEdge(erl[j], "right")) {
-                                    let k = 0;
-                                    while((j+k+1 <= erl.length-1)  && isCellEmpty(erl[j + k + 1])){
-                                        k++;
+                                if (!isCellOnEdge(erl[j], dir)) {
+                                    let moveDistance = 0;
+                                    while((j+moveDistance+1 <= erl.length-1)  && isCellEmpty(erl[j + moveDistance + 1])){
+                                        moveDistance++;
                                     }
-                                    // Jadiin 1 fungsi kalo udah bisa
-                                    let moved = false;
-                                    if (!isCellOnEdge(erl[j+k], "right")){
-                                        if (isBlockValEqual(erl[j],erl[j+k+1])){
-                                            val1 = Number(erl[j].firstElementChild.innerText);
-                                            val2 = Number(erl[j+k+1].firstElementChild.innerText);
-                                            deleteBlock(erl[j]);
-                                            newVal = val1+val2;
-                                            addBlock(erl[j+k+1], newVal);
-                                            mvClass = "moveright" + (k+1);
-                                            erl[j+k+1].lastElementChild.classList.add(mvClass);
-                                            deleteBlock(erl[j+k+1]);
-                                            moved = true;
-                                        } 
-                                    } 
-                                    if (!moved && k>0) { //sebelahnya kosong semua
-                                        deleteBlock(erl[j]);
-                                        addBlock(erl[j+k], 2);
-                                        mvClass = "moveright" + k;
-                                        erl[j+k].lastElementChild.classList.add(mvClass);
-                                    }
-                                    // Batas bawah jadiin 1 fungsi kalo udah bisa
-                                } else console.log('pojok');
+                                    animateBlock(erl, j, moveDistance, dir);
+                                }
                             }
                         }
                     }
-            } //else if (key == 37) { //left
-            //     for (let i = 0,erl; erl = rowList[i]; i++){
-            //         for (let j = 0;j <= (erl.length - 1); j++){ //iterate normal
-            //             if (!isCellEmpty(erl[j])){
-            //                 if (!isCellOnEdge(erl[j], "left")) {
-            //                     if (isCellEmpty(erl[j-1])){
-            //                         console.log("next is empty");
-            //                         //Animate
-            //                     } else if (isBlockValEqual(erl, j, "left")) {
-            //                         console.log("next is equal");
-            //                         // Animate juga, tapi delete yang lama
-            //                     }
-            //                 } else console.log('pojok');
-            //             }
-            //         }
-            //     }
-            // } else if (key == 38) { //up
-            //     for (let i = 0,ecl; ecl = colList[i]; i++){
-            //         for (let j = 0;j <= (ecl.length - 1); j++){ //iterate normal
-            //             if (!isCellEmpty(ecl[j])){
-            //                 if (!isCellOnEdge(ecl[j], "up")) {
-            //                     if (isCellEmpty(ecl[j-1])){
-            //                         console.log("next is empty");
-            //                         //Animate
-            //                     } else if (isBlockValEqual(ecl, j, "up")) {
-            //                         console.log("next is equal");
-            //                         // Animate juga, tapi delete yang lama
-            //                     }
-            //                 } else console.log('pojok');
-            //             }
-            //         }
-            //     }
-            // } else if (key == 40) { //down
-            //     for (let i = 0,ecl; ecl = colList[i]; i++){
-            //         for (let j = (ecl.length - 1);j >= 0; j--){ //iterate backwards
-            //             if (!isCellEmpty(ecl[j])){
-            //                 if (!isCellOnEdge(ecl[j], "down")) {
-            //                     if (isCellEmpty(ecl[j+1])){
-            //                         console.log("next is empty");
-            //                         //Animate
-            //                     } else if (isBlockValEqual(ecl, j, "down")) {
-            //                         console.log("next is equal");
-            //                         // Animate juga, tapi delete yang lama
-            //                     }
-            //                 } else console.log('pojok');
-            //             }
-            //         }
-            //     }
+            } else if (key == 37 || key == 38){
+                let currentList;
+                let dir;
+                    if (key == 37){
+                        currentList = rowList;
+                        dir = "left";
+                    } else if (key == 38) {
+                        currentList = colList;
+                        dir = "up";
+                    }
+                    for (let i = 0,erl; erl = currentList[i]; i++){
+                        for (let j = 0;j <= (erl.length - 1); j++){ //iterate forward
+                            if (!isCellEmpty(erl[j])){
+                                if (!isCellOnEdge(erl[j], dir)) {
+                                    let moveDistance = 0;
+                                    while((j-moveDistance-1 >= 0)  && isCellEmpty(erl[j - moveDistance - 1])){
+                                        moveDistance++;
+                                    }
+                                    animateBlock(erl, j, moveDistance, dir);
+                                }
+                            }
+                        }
+                    }
+                }
+            // if (blockMoved > 0){
+                addNewRandomBlock(1);
             // }
-            console.log(key);
-            addNewRandomBlock(1);
         }
     });
 }
@@ -187,5 +179,4 @@ function move(){
 
 setCells();
 move();
-// addNewRandomBlock(2);
 setTimeout(addNewRandomBlock(2), 300);
