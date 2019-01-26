@@ -1,19 +1,13 @@
 // Set grid pada awal game
 function setCells() {
-    let container = document.getElementById('grid-container');
-    for (let i = 1; i <= 16; i++) {
-        let cell = document.createElement('div');
-        cell.classList.add('grid-cell', 'empty');    
-        container.appendChild(cell);
-    }
+    let cellList = document.querySelectorAll('.grid-cell');
     // Add row and col classes to all cells
-    cellList = container.childNodes;
     let row = 1;
     let col = 1;
-    for (let i = 1; i <= 16; i++) {
+    for (let i = 0,cell; cell = cellList[i]; i++) {
         let rc = 'row'+row;
         let cc = 'col'+col;
-        cellList[i].classList.add(rc, cc);
+        cell.classList.add(rc, cc);
         col += 1 ;
         if (col > 4){
             col = 1;
@@ -172,6 +166,7 @@ function move(){
                 }
             }
             console.log(key);
+            addNewRandomBlock(1);
         }
     });
 }
@@ -179,4 +174,5 @@ function move(){
 
 setCells();
 move();
-addNewRandomBlock(2);
+// addNewRandomBlock(2);
+setTimeout(addNewRandomBlock(2), 300);
