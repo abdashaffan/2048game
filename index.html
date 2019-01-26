@@ -7,24 +7,62 @@
     <title>2048</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>  
-    <div id="grid-container">
-        <div class="grid-cell empty"></div>
-        <div class="grid-cell empty"></div>
-        <div class="grid-cell empty"></div>
-        <div class="grid-cell empty"></div>
-        <div class="grid-cell empty"></div>
-        <div class="grid-cell empty"></div>
-        <div class="grid-cell empty"></div>
-        <div class="grid-cell empty"></div>
-        <div class="grid-cell empty"></div>
-        <div class="grid-cell empty"></div>
-        <div class="grid-cell empty"></div>
-        <div class="grid-cell empty"></div>
-        <div class="grid-cell empty"></div>
-        <div class="grid-cell empty"></div>
-        <div class="grid-cell empty"></div>
-        <div class="grid-cell empty"></div>
+<body>
+    <div id="all-wrapper">
+        <div id="content-container">
+            <div id="header">
+                <div>
+                    <h1>2048</h1>
+                    <h2>Unofficial Website Version</h2>
+                </div>
+                <div id="btn-wrapper">
+                    <div id="score">
+                        <div id="score-title" class="title">SCORE</div>
+                        <div class="number" id="score-number">0</div>
+                    </div>
+                    <div id="best">
+                        <div id="best-title" class="title">BEST SCORE</div>
+                        <div id="best-number" class="number">1000</div>
+                    </div>
+                    <a href="" id="start">
+                        <span id="start-btn">New Game</span>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <hr>
+                <p>Join the numbers and get to the <b>2048 tile!</b></p>
+                <span id="reference">
+                    <p>Check original site of 2048 game by <em>Gabriele Cirulli  </em> <a href="https://play2048.co/" target="_blank">here</a></p>
+                </span>
+            </div>
+            <div id="rule">
+                <p><b>HOW TO PLAY: </b>Use your <b>arrow keys</b> to move the tiles. When two tiles with the same number touch, they <b>merge into one!</b></p>
+            </div>
+            <div id="credit">
+                <p>This version is created by <a href="">Abda Shaffan Diva</a></p>
+            </div>
+        </div>
+        <div id="board-container">
+            <div id="grid-container">
+                <div class="grid-cell empty"></div>
+                <div class="grid-cell empty"></div>
+                <div class="grid-cell empty"></div>
+                <div class="grid-cell empty"></div>
+                <div class="grid-cell empty"></div>
+                <div class="grid-cell empty"></div>
+                <div class="grid-cell empty"></div>
+                <div class="grid-cell empty"></div>
+                <div class="grid-cell empty"></div>
+                <div class="grid-cell empty"></div>
+                <div class="grid-cell empty"></div>
+                <div class="grid-cell empty"></div>
+                <div class="grid-cell empty"></div>
+                <div class="grid-cell empty"></div>
+                <div class="grid-cell empty"></div>
+                <div class="grid-cell empty"></div>
+            </div>
+        </div>
     </div>
     <!-- JS -->
     <script src="app.js"></script>  
