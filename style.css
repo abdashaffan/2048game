@@ -9,11 +9,135 @@ body {
     background-color: rgb(250, 248, 239);
     margin: 0;
     font-family: 'Roboto', sans-serif;
-    height: 100vh;
-    /* Flex layout settings */
-    display:flex;
+}
+#all-wrapper {
+    min-height: 100vh;
+    display: flex;
+}
+#content-container {
+    padding-left: 2em;
+    height: inherit;
+    max-width: 50%;
+}
+#header {
+    color: #776e65;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+#header h1 {
+    font-size: 70px;
+    font-weight: 700;
+    padding: 0;
+    margin-bottom: -10px;
+    letter-spacing: 5px;
+}
+#header h2 {
+    font-size: 25px;
+    font-weight: 700;
+    padding: 0;
+    margin-bottom: 10px;
+}
+p {
+    color: #776e65;
+}
+#reference p{
+    color: rgb(255, 255, 255);
+    border-radius: 3px;
+    background: rgb(237, 197, 63);
+    font-size: 16px;
+    margin: 0;
+    padding: 10px;
+}
+
+#reference a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-weight: bold;
+}
+#reference em{
+    text-decoration: underline;
+}
+
+/* Button Part */
+#btn-wrapper {
+    margin: 15px;
+    display: flex;
+    align-items: center;
+}
+#btn-wrapper div {
+    margin: 9px;
+    text-align: center;
+}
+#score {
+    display:inline-block;
+    background: rgb(187, 173, 160);
+    border-radius: 3px;
+    line-height: 0.75em;
+    width: 100px;
+}
+#best {
+    display:inline-block;
+    background: rgb(187, 173, 160);
+    border-radius: 3px;
+    line-height: 0.75em;
+    width: 100px;
+}
+#start {
+    display: inline-block;
+    width: 100px;
+    height: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    background: rgb(143, 122, 102);
+    border-radius: 3px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+a#start{
+    text-decoration: none;
+    color: #f9f6f2;
+}
+div.title {
+    color: #eee4da;
+    font-size: 13px;
+    font-weight: bold;
+}
+div.number {
+    color: white;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+
+/* Rule */
+#rule {
+    padding: 2em 0;
+    font-size: 22px;
+    color: #776e65;
+}
+
+#credit {
+    position: absolute;
+    bottom: 0px;
+    font-size: 15px;
+    color: #776e65;
+}
+#credit a{
+    color: #776e65;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#board-container {
+    height: inherit;
+    max-width: 50%;
+    margin: auto;
+    /* display:flex;
     justify-content:center;
-    align-items:center;
+    align-items:center; */
 }
 #grid-container {
     padding: 15px;
