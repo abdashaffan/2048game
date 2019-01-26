@@ -62,7 +62,7 @@ function isBlockValEqual(elList1,elList2) {
     return (val1 === val2);
 }
 
-function animateBlock (rowColList, startPos, distToLastEmptyCell, dir){
+function animateBlock (rowColList, startPos, distToLastEmptyCell, dir, blockMoved){
     let moved = false;
     let mvClass = "move" + dir;
     let lastEmptyPos, lastPos;
@@ -90,7 +90,7 @@ function animateBlock (rowColList, startPos, distToLastEmptyCell, dir){
             },100);
             rowColList[lastPos].firstElementChild.classList.add("enlarge");
             moved = true;
-            // blockMoved++;
+            blockMoved.num += 1;
         } 
     } 
     if (!moved && distToLastEmptyCell>0) { //sebelahnya kosong semua
@@ -99,7 +99,7 @@ function animateBlock (rowColList, startPos, distToLastEmptyCell, dir){
         addBlock(rowColList[lastEmptyPos], currentVal);
         mvClass += distToLastEmptyCell;
         rowColList[lastEmptyPos].lastElementChild.classList.add(mvClass);
-        // blockMoved++;
+        blockMoved.num += 1;
     }
 }
 
@@ -121,10 +121,10 @@ function move(){
             let c4List = document.querySelectorAll('.col4');
             rowList = [r1List,r2List,r3List,r4List];
             colList = [c1List, c2List, c3List, c4List];
+            let blockMoved = {num: 0};
             if (key == 39 || key == 40){
                 let currentList;
                 let dir;
-                // let blockMoved = 0;
                     if (key == 39){
                         currentList = rowList;
                         dir = "right";
@@ -140,7 +140,7 @@ function move(){
                                     while((j+moveDistance+1 <= erl.length-1)  && isCellEmpty(erl[j + moveDistance + 1])){
                                         moveDistance++;
                                     }
-                                    animateBlock(erl, j, moveDistance, dir);
+                                    animateBlock(erl, j, moveDistance, dir, blockMoved);
                                 }
                             }
                         }
@@ -163,19 +163,18 @@ function move(){
                                     while((j-moveDistance-1 >= 0)  && isCellEmpty(erl[j - moveDistance - 1])){
                                         moveDistance++;
                                     }
-                                    animateBlock(erl, j, moveDistance, dir);
+                                    animateBlock(erl, j, moveDistance, dir, blockMoved);
                                 }
                             }
                         }
                     }
                 }
-            // if (blockMoved > 0){
+            if (blockMoved.num > 0){
                 addNewRandomBlock(1);
-            // }
+            }
         }
     });
 }
-
 
 setCells();
 move();
