@@ -99,6 +99,10 @@ p {
 a#start{
     text-decoration: none;
     color: #f9f6f2;
+    opacity: 0.9;
+}
+a#start:hover {
+    opacity: 1;
 }
 div.title {
     color: #eee4da;
@@ -135,9 +139,6 @@ div.number {
     height: inherit;
     max-width: 50%;
     margin: auto;
-    /* display:flex;
-    justify-content:center;
-    align-items:center; */
 }
 #grid-container {
     padding: 15px;
@@ -150,6 +151,7 @@ div.number {
     grid-template-rows: repeat(4, 1fr);
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 15px;
+    position: relative;
 }
 
 .grid-cell {
@@ -188,11 +190,9 @@ div.number {
     }
 }
 
-/* Animation class */
 .enlarge {
     animation: enlarge 200ms ease;
     animation-fill-mode: forwards;
-    /* animation-delay: 100ms; */
 }
 
 @keyframes enlarge {
@@ -364,6 +364,94 @@ div.number {
     }
     100% {
         transform: translateY(0);
+    }
+}
+
+#gameover-scr{
+    position: absolute;
+    top: 0;
+    left:0;
+    width: 500px;
+    height: 500px;
+    background: rgb(187, 173, 160);
+    border-radius: 6px;
+    z-index: -1;
+    background: white;
+    opacity: 0.75;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#best-tile {
+    text-align: center;
+    opacity: 0;
+    position: absolute;
+    top:230px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    color: rgb(143, 122, 102);
+    font-size: 40px;
+    font-weight: bold;
+    font-family: inherit;
+}
+.over{
+    animation-name: over;
+    animation-duration: 500ms;
+    animation-fill-mode: forwards;
+}
+@keyframes over {
+    0% {
+        width: 0;
+        height: 0;
+        top:50%;
+        left:50%;
+    }
+    100% {
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+    }
+}
+.restart{
+    animation-name: restart;
+    animation-duration: 200ms;
+    animation-fill-mode: forwards;
+}
+@keyframes restart {
+    0% {
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+    }
+    100% {
+        z-index: -1;
+        width: 0;
+        height: 0;
+        top:50%;
+        left:50%;
+    }
+}
+.flydown{
+    animation-name: flydown;
+    animation-duration: 1s;
+    animation-delay: 500ms;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+@keyframes flydown {
+    0%{
+        transform: translateY(-20px);
+        opacity: 0;
+        z-index: 2;
+    }
+    100% {
+        z-index: 2;
+        transform: translateY(0);
+        opacity: 1;
     }
 }
 

@@ -21,19 +21,19 @@ function setCells() {
     }
 }
 
-function addNewRandomBlock(Num) {
-    for (let i = 0; i < Num; i++){
+function addNewRandomBlock(numOfBlock) {
+    for (let i = 0; i < numOfBlock; i++){
         let emptyCells = document.querySelectorAll('.empty');
         let posRandom = Math.floor((Math.random()) * (emptyCells.length-1));
         let cell = emptyCells[posRandom];
         addBlock(cell, 2);
     }
 }
-function addBlock(elCell, numBlock) {
+function addBlock(elCell, blockNumVal) {
     let gb = document.createElement('div');
-    gb.innerText = numBlock;
+    gb.innerText = blockNumVal;
     gb.classList.add('grid-block');
-    let sLen =  numBlock.toString().length;
+    let sLen =  blockNumVal.toString().length;
     // Font-size scaling
     if ( sLen > 3){
         let scale = 0.85;
@@ -237,14 +237,50 @@ function move(){
                 }
             }
         } else {
-            alert("Game over");
+            showGameOverScr();
         }
     });
 }
-
+function bestTile(){
+    let rows = getAllRows();
+    let best = 2;
+    for (let i = 0,erl; erl = rows[i]; i++){
+        for (let j = 0;j <= (erl.length - 1); j++){
+            if (Number(erl[j].innerText) > best){
+                best = Number(erl[j].innerText);
+            }
+        }
+    }
+    return best;
+}
+function showGameOverScr(){
+    let tileContent = 'YOUR BEST TILE : ' + bestTile().toString();
+    let content = document.getElementById("best-tile");
+    let screenOver = document.getElementById("gameover-scr");
+    content.innerText = tileContent;
+    content.classList.add('flydown');
+    screenOver.classList.remove('restart');
+    screenOver.classList.add("over");
+    setTimeout(function(){document.getElementById('start-btn').innerText = 'Restart';},1000);
+    document.getElementById("best-tile").style.display = "block";
+}
+function hideGameOverScr(){
+    if (document.getElementById("gameover-scr").classList.contains('over')){
+        document.getElementById("gameover-scr").classList.add('restart');
+    }
+    setTimeout(function(){
+        document.getElementById("gameover-scr").classList.remove('over');
+    },200);
+    document.getElementById("best-tile").style.display = "none";
+}
 function resetGame(){
     document.getElementById('start').addEventListener('click', function(e){
         e.preventDefault();
+        //hide gameover screen
+        // document.getElementById("gameover-scr").classList.remove('over');
+        // document.getElementById("gameover-scr").classList.add('restart');
+        hideGameOverScr();
+        //
         cellList = document.querySelectorAll('.grid-cell');
         for (let i = 0, cell; cell = cellList[i]; i++){
             cell.innerHTML = '';
@@ -252,7 +288,10 @@ function resetGame(){
         }
         score = 0;
         document.getElementById('score-number').innerText = score;
-        addNewRandomBlock(2); 
+        setTimeout(function(){
+            addNewRandomBlock(2);
+        },200);
+        document.getElementById('start-btn').innerText = 'New Game';
     })
 }
 
