@@ -33,6 +33,16 @@ function addBlock(elCell, numBlock) {
     let gb = document.createElement('div');
     gb.innerText = numBlock;
     gb.classList.add('grid-block');
+    let sLen =  numBlock.toString().length;
+    // Font-size scaling
+    if ( sLen > 3){
+        let scale = 0.85;
+        let factor = (sLen - 3);
+        let initialFontSize = 55;
+        let finalFontSize = initialFontSize*(scale**factor);
+        strFontSize = finalFontSize.toString() + 'px';
+        gb.style.fontSize = strFontSize;
+    }
     elCell.appendChild(gb);
     elCell.classList.remove('empty');
 }
